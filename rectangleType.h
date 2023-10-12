@@ -8,7 +8,6 @@
 #include <iostream>
 using namespace std;
 
-
 class rectangleType
 {
     //Overload the stream insertion and extraction operators
@@ -23,23 +22,23 @@ public:
     double perimeter() const;
 
     //Overload the arithmetic operators
-    rectangleType operator + (const rectangleType &) const;
-    rectangleType operator - (const rectangleType &) const;
-    rectangleType operator * (const rectangleType&) const;
+    friend rectangleType operator + (const rectangleType &) ;
+    friend rectangleType operator - (const rectangleType &) ;
+    friend rectangleType operator * (const rectangleType &) ;
 
     //Overload the increment and decrement operators
-    rectangleType operator ++ ();          //pre-increment
-    rectangleType operator ++ (int);       //post-increment
-    rectangleType operator -- ();          //pre-decrement
-    rectangleType operator -- (int);       //post-decrement
+    friend rectangleType operator ++ ( rectangleType&);          //pre-increment
+    friend rectangleType operator ++ ( rectangleType&, int);       //post-increment
+    friend rectangleType operator -- ( rectangleType&);          //pre-decrement
+    friend rectangleType operator -- ( rectangleType&, int);       //post-decrement
 
     //Overload the relational operators
-    bool operator == (const rectangleType&) const;
-    bool operator != (const rectangleType&) const;
-    bool operator <= (const rectangleType&) const;
-    bool operator < (const rectangleType&) const;
-    bool operator >= (const rectangleType&) const;
-    bool operator > (const rectangleType&) const;
+    friend bool operator == (const rectangleType&, const rectangleType&) ;
+    friend bool operator != (const rectangleType&, const rectangleType&) ;
+    friend bool operator <= (const rectangleType&, const rectangleType&) ;
+    friend bool operator < (const rectangleType&, const rectangleType&) ;
+    friend bool operator >= (const rectangleType&, const rectangleType&) ;
+    friend bool operator > (const rectangleType&, const rectangleType&) ;
 
     //constructors
     rectangleType();

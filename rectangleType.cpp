@@ -55,118 +55,123 @@ rectangleType::rectangleType()
     width = 0;
 }
 
-rectangleType rectangleType::operator++()
+rectangleType operator++(rectangleType& rectangle0)
 {
     //increment the length and width
-    ++length;
-    ++width;
+    ++rectangle0.length;
+    ++rectangle0.width;
 
-    return *this;   //return the incremented value of the object
+    return rectangle0; // *this;   //return the incremented value of the object
 }
 
-rectangleType rectangleType::operator++(int u)
+rectangleType operator++(rectangleType& rectangle0, int u)
 {
-    rectangleType temp = *this;  //use this pointer to copy
+    rectangleType temp(rectangle0.getLength(),rectangle0.getWidth());//= *this;  //use this pointer to copy
     //the value of the object
     //increment the length and width
-    length++;
-    width++;
+    rectangle0.length++;
+    rectangle0.width++;
 
     return temp;    //return the old value of the object
 }
 
-rectangleType rectangleType::operator--()
+rectangleType operator--(rectangleType& rectangle0)
 {
     //Decrement the length and width
-    assert(length != 0 && width != 0);
-    --length;
-    --width;
+    assert(rectangle0.getLength() != 0 && rectangle0.getWidth() != 0);
+    --rectangle0.width;
+    --rectangle0.length;
 
-    return *this;    //return the incremented value of the object
+    return rectangle0;//*this;    //return the incremented value of the object
 }
 
-rectangleType rectangleType::operator--(int u)
+rectangleType operator--(rectangleType& rectangle0, int u)
 {
-    rectangleType temp = *this;  //use this pointer to copy
+    rectangleType temp(rectangle0.getLength(),rectangle0.getWidth()); //*this;  //use this pointer to copy
     //the value of the object
 
     //Decrement the length and width
-    assert(length != 0 && width != 0);
-    length--;
-    width--;
+    assert(rectangle0.getLength() != 0 && rectangle0.getWidth() != 0);
+    rectangle0.length--;
+    rectangle0.width--;
 
     return temp;    //return the old value of the object
 }
 
-rectangleType rectangleType::operator+
-        (const rectangleType& rectangle) const
-{
-    rectangleType tempRect;
-
-    tempRect.length = length + rectangle.length;
-    tempRect.width = width + rectangle.width;
-
-    return tempRect;
-}
-
-rectangleType rectangleType::operator-
-        (const rectangleType& rectangle) const
-{
-    rectangleType tempRect;
-
-    assert(length >= rectangle.length &&
-           width >= rectangle.width);
-
-    tempRect.length = length - rectangle.length;
-    tempRect.width = width - rectangle.width;
+rectangleType operator+
+        (const rectangleType& rectangle0, const rectangleType& rectangle){
+    rectangleType tempRect(
+            rectangle0.getLength() + rectangle.getLength(),
+            rectangle0.getWidth() + rectangle.getWidth()
+            );
+//    tempRect.length = length + rectangle.length;
+//    tempRect.width = width + rectangle.width;
 
     return tempRect;
 }
 
-rectangleType rectangleType::operator*(const rectangleType& rectangle) const
+rectangleType operator-
+        (const rectangleType& rectangle0, const rectangleType& rectangle)
 {
-    rectangleType tempRect;
+    assert(rectangle0.getLength() >= rectangle.getLength() &&
+           rectangle0.getWidth() >= rectangle.getWidth());
 
-    tempRect.length = length * rectangle.length;
-    tempRect.width = width * rectangle.width;
+    rectangleType tempRect(rectangle0.getLength() - rectangle.getLength(),
+                           rectangle0.getWidth() - rectangle.getWidth()
+    );
+
+//    tempRect.length = rectangle0.getLength() - rectangle.getLength();
+//    tempRect.width = rectangle0.getWidth() - rectangle.getWidth();
 
     return tempRect;
 }
 
-bool rectangleType::operator==
-        (const rectangleType& rectangle) const
+rectangleType operator*(const rectangleType& rectangle0, const rectangleType& rectangle)
 {
-    return (area() == rectangle.area());
+    rectangleType tempRect(rectangle0.getLength() * rectangle.getLength(),
+                           rectangle0.getWidth() * rectangle.getWidth()
+                           );
+
+//    tempRect.length = rectangle0.length * rectangle.length;
+//    tempRect.width = rectangle0.width * rectangle.width;
+
+    return tempRect;
 }
 
-bool rectangleType::operator!=
-        (const rectangleType& rectangle) const
+bool operator==
+        (const rectangleType& rectangle0, const rectangleType& rectangle)
 {
-    return (area() != rectangle.area());
+    return (rectangle0.area() == rectangle.area());
 }
 
-bool rectangleType::operator<=
-        (const rectangleType& rectangle) const
+bool operator!=
+        (const rectangleType& rectangle0, const rectangleType& rectangle)
 {
-    return (area() <= rectangle.area());
+    return (rectangle0.area() != rectangle.area());
 }
 
-bool rectangleType::operator<
-        (const rectangleType& rectangle) const
+bool operator<=
+        (const rectangleType& rectangle0, const rectangleType& rectangle)
 {
-    return (area() < rectangle.area());
+    return (rectangle0.area() <= rectangle.area());
 }
 
-bool rectangleType::operator>=
-        (const rectangleType& rectangle) const
+bool operator<
+        (const rectangleType& rectangle0, const rectangleType& rectangle)
 {
-    return (area() >= rectangle.area());
+    return (rectangle0.area() < rectangle.area());
 }
 
-bool rectangleType::operator>
-        (const rectangleType& rectangle) const
+bool operator>=
+        (const rectangleType& rectangle0, const rectangleType& rectangle)
 {
-    return (area() > rectangle.area());
+    return (rectangle0.area() >= rectangle.area());
+}
+
+bool operator>
+        (const rectangleType& rectangle0, const rectangleType& rectangle)
+{
+    return (rectangle0.area() > rectangle.area());
 }
 
 ostream& operator<<(ostream& osObject,
@@ -184,3 +189,4 @@ istream& operator>>(istream& isObject, rectangleType& rectangle)
 
     return isObject;
 }
+
